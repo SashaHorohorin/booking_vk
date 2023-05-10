@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./Booking.module.css";
 import Select from "../Select/Select";
 import Input from "../Input/Input";
+import Button from "../Button/Button";
 
 const Booking = () => {
     const [floors, setFloors] = useState([]);
@@ -51,7 +52,13 @@ const Booking = () => {
                 break;
             }
         }
-        count ? console.log(obj) : alert("Заполните все поля");
+        if(count){
+            let json = JSON.stringify(obj);
+            console.log(json)
+        }else{
+            alert("Заполните все поля");
+        }
+        // count ? console.log(obj) : alert("Заполните все поля");
     };
     const handleSubmit = (event) => {
         // alert('Отправленное имя: ' + this.state.value);
@@ -82,21 +89,21 @@ const Booking = () => {
                     handleFunction={(e) => handleFunction(e)}
                     title="tower"
                     forHtml="tower-select"
-                    label="Choose a tower:"
+                    label="Выберите башню:"
                 />
                 <Select
                     rooms={floors}
                     handleFunction={(e) => handleFunction(e)}
                     title="floor"
                     forHtml="floors-select"
-                    label="Choose a floor:"
+                    label="Выберите этаж:"
                 />
                 <Select
                     rooms={rooms}
                     handleFunction={(e) => handleFunction(e)}
                     title="room"
                     forHtml="room-select"
-                    label="Choose a meeting room:"
+                    label="Выберите номер переговорки:"
                 />
 
                 <Input
@@ -105,7 +112,7 @@ const Booking = () => {
                     id="date"
                     handleFunction={(e) => handleFunction(e)}
                     forHtml="date"
-                    label="Choose a date:"
+                    label="Выберите дату:"
                 />
 
                 <Input
@@ -114,7 +121,7 @@ const Booking = () => {
                     id="time"
                     handleFunction={(e) => handleFunction(e)}
                     forHtml="time"
-                    label="Choose a interval time:"
+                    label="Выберите интервал бронирования:"
                 />
                 <Input
                     type="time"
@@ -126,7 +133,7 @@ const Booking = () => {
                 />
 
                 <label className={style.form__label} htmlFor="comment">
-                    Write comment:{" "}
+                    Напишите комментарий:{" "}
                 </label>
                 <textarea
                     className={style.form__textarea}
@@ -135,20 +142,8 @@ const Booking = () => {
                     id="comment"
                 ></textarea>
 
-                <button
-                    onClick={() => showResult()}
-                    className={style.form__btn}
-                    type="submit"
-                >
-                    Отправить
-                </button>
-                <button
-                    onClick={() => resetObj()}
-                    className={style.form__btn}
-                    type="reset"
-                >
-                    Стереть все
-                </button>
+                <Button action={() => showResult()} type='submit' text='Отправить'/>
+                <Button action={() => resetObj()} type='reset' text='Стереть всё'/>
             </form>
         </div>
     );
